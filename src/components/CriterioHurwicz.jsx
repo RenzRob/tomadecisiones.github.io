@@ -16,7 +16,7 @@ const CriterioHurwicz = ({ data, rows, cols, decisionNames, columnNames}) => {
 
     const onChangeInputW = (e) => setW(parseFloat(e.target.value));
         
-    const [w, setW] = useState(0.5); // Coeficiente de optimismo
+    const [w, setW] = useState(0.5);
 
     const hurwiczResults = calculateHurwicz(w);
     

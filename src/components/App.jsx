@@ -1,88 +1,112 @@
 // src/components/App.jsx
 import React, { useState } from 'react';
-import Grid from './Grid';
+import MatrizBeneficios from './MatrizBeneficios';
 import CriterioHurwicz from './CriterioHurwicz';
 import CriterioWald from './CriterioWald';
 import CriterioMaxiMax from './CriterioMaxiMax';
 import CriterioSavage from './CriterioSavage';
+import BeneficioEsperadoMatriz from './BeneficioEsperadoMatriz';
 
-const App = () => {
-    const [rows, setRows] = useState(2); // Decisiones
-    const [cols, setCols] = useState(2); // Estados de la naturaleza
+const App = () => { 
+    const [data, setData] = useState(Array(2).fill(Array(2).fill(0)));
 
-    const [data, setData] = useState(Array(rows).fill(Array(cols).fill(0)));
-    const [columnNames, setColumnNames] = useState(Array(cols).fill('x'));
-    const [decisionNames, setDecisionNames] = useState(Array(rows).fill('').map((_, i) => `Decision ${i + 1}`));
+    const [columnNames, setColumnNames] = useState(Array(data[0].length).fill('x'));
+    const [decisionNames, setDecisionNames] = useState(Array(data.length).fill('').map((_, i) => `Decision ${i + 1}`));
     
-    const [probabilities, setProbabilities] = useState(Array(cols).fill(0.5));
+    const [probabilities, setProbabilities] = useState(Array(data[0].length).fill(0.5));
 
     const handleGridChange = (rowIdx, colIdx, value) => {
-        const newData = data.map((row) => [...row]); // Clonamos el array de datos
+        const newData = data.map((row) => [...row]);
+        
         newData[rowIdx][colIdx] = value;
+        
         setData(newData);
     };
 
     const handleColumnNameChange = (colIdx, name) => {
         const newColumnNames = [...columnNames];
+        
         newColumnNames[colIdx] = name;
+        
         setColumnNames(newColumnNames);
     };
 
     const handleDecisionNameChange = (rowIdx, name) => {
         const newDecisionNames = [...decisionNames];
+        
         newDecisionNames[rowIdx] = name;
+        
         setDecisionNames(newDecisionNames);
     };
 
     const setColumnNumber = (e) => {
-        if (e.target.value === '') {
-            setCols(2);
-            return;
-        }
+        if (e.target.value === '') return;
+
         const number = parseInt(e.target.value);
-        
-        const newColumnNames = Array(number).fill('x');
-        
+                
         const newData = data.map((row) => {
             const newRow = [...row];
+            
             while (newRow.length < number) {
                 newRow.push(0);
             }
             return newRow.slice(0, number);
         });
 
+        const newColumnNames = Array(number).fill('x');
+
         setData(newData);
-        setCols(number);
         setColumnNames(newColumnNames);
     }
 
     const setRowNumber = (e) => {
-        if (e.target.value === '') {
-            setRows(2);
-            return;
-        }
+        if (e.target.value === '') return;
 
         const number = parseInt(e.target.value);
         
         const newDecisionNames = Array(number).fill('').map((_, i) => `Decision ${i + 1}`);
         
-        setRows(number);
+        const newData = Array(number).fill(Array(data[0].length).fill(0));
+        
+        setData(newData);
         setDecisionNames(newDecisionNames);
     }
 
     return (
         <div>
             <h1>Calculadora de Criterios de Decisión</h1>
-
-            <label htmlFor="estados">Estados de la naturaleza</label>
-            <input key="estados" type="number" value={cols} onChange={setColumnNumber} min={2}/>
             
-            <label htmlFor="decisiones">Decisiones</label>
-            <input key="estados" type="number" value={rows} onChange={setRowNumber} min={2}/>
+            <div className='inputs-container'>
+                <label htmlFor="estados">Estados de la naturaleza</label>
+                <input 
+                    className='input-estilos'
+                    key="estados" 
+                    type="number" 
+                    value={data[0].length} 
+                    onChange={setColumnNumber}
+                    placeholder='Estados de la naturaleza'
+                    min={2}
+                    max={10}
+                    step={1}
+                />
+                
+                <label htmlFor="decisiones" id='label-decisiones'>Decisiones</label>
+                <input 
+                    className='input-estilos'
+                    key="estados" 
+                    type="number" 
+                    value={data.length} 
+                    onChange={setRowNumber} 
+                    placeholder='Decisiones'
+                    min={2}
+                    max={10}
+                    step={1}
+                />
+            </div>
 
-            <Grid 
-                rows={rows} 
-                cols={cols} 
+            <MatrizBeneficios 
+                rows={data.length} 
+                cols={data[0].length} 
                 onChange={handleGridChange} 
                 onColumnNameChange={handleColumnNameChange} 
                 decisionNames={decisionNames}
@@ -90,33 +114,42 @@ const App = () => {
             />
 
             <CriterioHurwicz 
-                data={data} 
-                rows={rows} 
-                cols={cols + 1} 
+                data={data}
+                rows={data.length} 
+                cols={data[0].length + 1} 
                 decisionNames={decisionNames} 
                 columnNames={columnNames}
             />
 
             <CriterioWald
                 data={data} 
-                rows={rows} 
-                cols={cols + 1} 
+                rows={data.length} 
+                cols={data[0].length + 1} 
                 decisionNames={decisionNames} 
                 columnNames={columnNames}
             />
 
             <CriterioMaxiMax 
                 data={data} 
-                rows={rows} 
-                cols={cols + 1} 
+                rows={data.length} 
+                cols={data[0].length + 1} 
                 decisionNames={decisionNames} 
                 columnNames={columnNames}
             />
 
             <CriterioSavage 
                 data={data} 
-                rows={rows} 
-                cols={cols + 1} 
+                rows={data.length} 
+                cols={data[0].length + 1} 
+                decisionNames={decisionNames} 
+                columnNames={columnNames}
+            />
+
+            <h1>Decisiones bajo condiciones de riesgo</h1>
+            <BeneficioEsperadoMatriz 
+                data={data} 
+                rows={data.length} 
+                cols={data[0].length + 1} 
                 decisionNames={decisionNames} 
                 columnNames={columnNames}
             />

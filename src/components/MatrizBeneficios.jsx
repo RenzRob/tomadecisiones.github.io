@@ -1,7 +1,7 @@
 // src/components/Grid.jsx
 import React from 'react';
 
-const Grid = ({ rows, cols, onChange, onColumnNameChange, decisionNames, onDecisionNameChange }) => {
+const MatrizBeneficios = ({ rows, cols, onChange, onColumnNameChange, decisionNames, onDecisionNameChange }) => {
     const handleCellChange = (rowIdx, colIdx, value) => {
         onChange(rowIdx, colIdx, parseFloat(value));
     };
@@ -59,4 +59,4 @@ const Grid = ({ rows, cols, onChange, onColumnNameChange, decisionNames, onDecis
     );
 };
 
-export default Grid;
+export default MatrizBeneficios;

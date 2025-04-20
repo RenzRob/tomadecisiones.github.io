@@ -53,3 +53,35 @@ code {
   border-bottom: 2px solid #009879;
 }
 
+
+.input-estilos{
+  padding: 6px 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  font-family: inherit;
+  transition: all 0.3s ease;
+  width: 10%;
+  box-sizing: border-box;
+  margin-left: 20px;
+}
+
+/* Cuando el input está enfocado */
+.input-estilos:focus {
+  border-color: #009879;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 152, 121, 0.2);
+}
+
+/* Estilo del placeholder */
+.input-estilos::placeholder {
+  color: #aaa;
+}
+
+#label-decisiones {
+  margin-left: 20px;
+}
+
+.formula {
+  font-size: 1.5em; /* o el tamaño que prefieras */
+}
