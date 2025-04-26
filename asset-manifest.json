@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/RenzRob/tomadecisiones.github.io/static/css/main.90ef48c4.css",
+    "main.js": "/RenzRob/tomadecisiones.github.io/static/js/main.e460eb36.js",
+    "index.html": "/RenzRob/tomadecisiones.github.io/index.html",
+    "main.90ef48c4.css.map": "/RenzRob/tomadecisiones.github.io/static/css/main.90ef48c4.css.map",
+    "main.e460eb36.js.map": "/RenzRob/tomadecisiones.github.io/static/js/main.e460eb36.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.90ef48c4.css",
+    "static/js/main.e460eb36.js"
+  ]
+}
