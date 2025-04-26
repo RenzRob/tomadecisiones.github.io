@@ -64,9 +64,9 @@ const BeneficioEsperadoMatriz = ({ data, rows, cols, decisionNames, columnNames}
         return [...row, columnaBeneficioEsperado[rowIdx]];
     });
 
-    const newColumnNames = [...columnNames, 'Beneficio Esperado'];
+    const newColumnNames = [...columnNames, 'E(B) --> Beneficio esperado'];
 
-    const DECIMALES = 3;
+    const DECIMALES = 2;
 
     const maxBeneficioEsperado = Math.max(...columnaBeneficioEsperado).toFixed(DECIMALES);
     
@@ -80,7 +80,7 @@ const BeneficioEsperadoMatriz = ({ data, rows, cols, decisionNames, columnNames}
 
     return (
         <div>
-            <h2>Maximo beneficio esperado</h2>
+            <h2>Maxima esperanza del beneficio</h2>
             
             <table border="1" class="styled-table">
                 <thead>
